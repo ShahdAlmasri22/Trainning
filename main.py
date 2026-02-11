@@ -1,5 +1,6 @@
 import PythonFundamentals
 
+
 while True:
     print("\n------------------- Menu -------------------")
     print("Choose the topics that you need to know about")
