@@ -30,7 +30,6 @@ def update_status(tasks, id: str, new_status: int):
 
     print("There is no task with id", id)
 
-
 def delete_task(tasks,id:str):
     for task in tasks:
         if task["id"] == int(id):

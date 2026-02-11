@@ -18,7 +18,6 @@ while True:
 
     choice = int(input("Enter your choice: "))
 
-
     match choice:
         case 1:
             print("Enter the new task information: ")
