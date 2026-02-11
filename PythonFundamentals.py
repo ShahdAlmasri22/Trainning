@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import AbstractSet
 
+
 def InOut (name):
     print("Hello "+name)
 
