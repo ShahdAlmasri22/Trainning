@@ -100,7 +100,7 @@ class ContextManager:
 
     def __enter__(self):
         print('enter method ')
-        return self
+        # return self
 
     def __exit__(self, exc_type, exc_value, exc_traceback):
         print('exit method ')
