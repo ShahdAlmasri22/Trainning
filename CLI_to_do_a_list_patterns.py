@@ -51,7 +51,6 @@ while True:
                 else:
                     tasks.update_status(id,ManageTask_patterns.status.COMPLETED)
 
-
         case 4:
              id = input("Enter the id of task that you want to delete: ")
              tasks.delete_task(int(id))
