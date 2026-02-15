@@ -4,7 +4,6 @@ class status(Enum):
     COMPLETED= "completed"
     PENDING = "pending"
 
-
 def print_all_task(tasks):
     if not tasks:
         print("No tasks found")
