@@ -47,9 +47,9 @@ while True:
                 print("Invalid choice ❌")
             else:
                 if (new_status == "1"):
-                    tasks.update_status(id,ManageTask_patterns.status.PENDING)
+                    tasks.update_status(id, ManageTask_patterns.status.PENDING)
                 else:
-                    tasks.update_status(id,ManageTask_patterns.status.COMPLETED)
+                    tasks.update_status(id, ManageTask_patterns.status.COMPLETED)
 
         case 4:
              id = input("Enter the id of task that you want to delete: ")

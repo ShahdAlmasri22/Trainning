@@ -50,7 +50,7 @@ while True:
                     pc=1
                 else:
                     pc=2
-                ManageTask_basic.update_status(tasks,id,pc)
+                ManageTask_basic.update_status(tasks, id, pc)
 
         case 4:
              id = input("Enter the id of task that you want to delete: ")
