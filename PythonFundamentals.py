@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 def in_out (name):
     print("Hello "+name)
 
