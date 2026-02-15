@@ -1,6 +1,5 @@
 import PythonFundamentals
 
-
 while True:
     print("\n------------------- Menu -------------------")
     print("Choose the topics that you need to know about")
@@ -17,109 +16,115 @@ while True:
             10. Decorates
             11. Exit
     """)
+    try:
+        choice = int(input("Enter your choice: "))
 
-    choice = int(input("Enter your choice: "))
 
+        match choice:
+            case 1:
+                name = input("What's your name?")
+                PythonFundamentals.in_out(name)
 
-    match choice:
-        case 1:
-            name = input("What's your name?")
-            PythonFundamentals.InOut(name)
+            case 2:
+                print("------ Python Data Types ------")
+                print("""
+                1. Int
+                2. Float
+                3. String
+                4. List
+                5. Tuple
+                6. Dict
+                7. Set
+                8. exit
+                """)
 
-        case 2:
-            print("------ Python Data Types ------")
-            print("""
-            1. Int
-            2. Float
-            3. String
-            4. List
-            5. Tuple
-            6. Dict
-            7. Set
-            8. exit
-            """)
+                choice = int(input("Choose a data type: "))
 
-            choice = int(input("Choose a data type: "))
+                PythonFundamentals.data_types(choice)
 
-            PythonFundamentals.DataTypes(choice)
+            case 3:
+                try:
+                    x=input("Enter any value that you want: ")
+                    PythonFundamentals.casting(x)
+                except:
+                    print("enter a numeric value")
 
-        case 3:
-            x=input("Enter any value that you want: ")
-            PythonFundamentals.Casting(x)
+            case 4:
+                word = input("Enter any statement: ")
 
-        case 4:
-            word = input("Enter any statement: ")
+                print("\n--- String Operations ---")
+                print("Length:", len(word))
 
-            print("\n--- String Operations ---")
-            print("Length:", len(word))
+                print("Uppercase:", word.upper())
+                print("Lowercase:", word.lower())
 
-            print("Uppercase:", word.upper())
-            print("Lowercase:", word.lower())
+                old = input("Enter word to replace: ")
+                new = input("Enter new word: ")
+                word = word.replace(old, new)
+                print("After replace:", word)
+                print("The result:", word.title())
 
-            old = input("Enter word to replace: ")
-            new = input("Enter new word: ")
-            word = word.replace(old, new)
-            print("After replace:", word)
-            print("The result:", word.title())
+                print("Strip spaces:", word.strip())
 
-            print("Strip spaces:", word.strip())
+                print("Split words:", word.split())
 
-            print("Split words:", word.split())
+                print("Count of 'a' =", word.count("a"))
 
-            print("Count of 'a' =", word.count("a"))
+                print("Starts with 'H' =", word.startswith("H"))
 
-            print("Starts with 'H' =", word.startswith("H"))
+                print("Ends with 'n' =", word.endswith("n"))
 
-            print("Ends with 'n' =", word.endswith("n"))
+            case 5:
+                print("------ Comparing between x1 and x2 ------")
+                x1= ( input("x1: "))
+                x2 = ( input("x2: "))
+                print("x1==x2:", x1 == x2)
+                print("x1!=x2:", x1 != x2)
+                print("x1<x2:", x1 < x2)
 
-        case 5:
-            print("------ Comparing between x1 and x2 ------")
-            x1= input("x1: ")
-            x2 = input("x2: ")
-            print("x1==x2:", x1 == x2)
-            print("x1!=x2:", x1 != x2)
-            print("x1<x2:", x1 < x2)
+            case 6:
+                arr = []
+                n = int(input("To fill the array how many values do you want to enter? "))
 
-        case 6:
-            arr = []
-            n = int(input("To fill the array how many values do you want to enter? "))
+                for i in range(n):
+                    value = input(f"Enter value {i + 1}: ")
+                    arr.append(value)
 
-            for i in range(n):
-                value = input(f"Enter value {i + 1}: ")
-                arr.append(value)
+                print("The array is:", arr)
 
-            print("The array is:", arr)
+            case 7:
+                print("Inheritance & Polymorphism")
+                obj = PythonFundamentals.Dog()
+                obj.sound()
+                obj.for_animals() # calling fun are encapsulation (protected)
 
-        case 7:
-            print("Inheritance & Polymorphism")
-            obj = PythonFundamentals.Dog()
-            obj.sound()
-            obj._onlyFprAnimals() # encapsulation (protected)
+                print("Abstract")
+                obj2= PythonFundamentals.Franch()
+                obj2.regards()
 
-            print("Abstract")
-            obj2= PythonFundamentals.Franch()
-            obj2.regards()
+                print("Static")
+                res = PythonFundamentals.Calc.add(2, 3)
+                print(res)
 
-            print("Static")
-            res = PythonFundamentals.Calc.add(2, 3)
-            print(res)
+            case 8:
+                with PythonFundamentals.ContextManager() as manager:
+                    print('in the block')
 
-        case 8:
-            with PythonFundamentals.ContextManager() as manager:
-             print('in the block')
+            case 9:
+                lam= lambda x,y: x+y
+                print("Ex. for lambda concept 3+2=", lam(3,2))
 
-        case 9:
-            lam= lambda x,y: x+y
-            print("Ex. for lambda concept 3+2=", lam(3,2))
+            case 10:
+                print("Decorates ex to change the cases")
+                ex=input("Enter any statement: ")
+                print("The result: ",PythonFundamentals.fun(ex))
 
-        case 10:
-            print("Decorates ex to change the cases")
-            ex=input("Enter any statement: ")
-            print("The result: ",PythonFundamentals.fun(ex))
+            case 11:
+                print("Goodbye 👋")
+                break
 
-        case 11:
-            print("Goodbye 👋")
-            break
+            case _:
+                print("Invalid choice ❌")
 
-        case _:
-            print("Invalid choice ❌")
+    except:
+        print("Please enter only a numeric value")
