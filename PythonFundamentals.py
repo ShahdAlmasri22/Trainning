@@ -1,11 +1,9 @@
 from abc import ABC, abstractmethod
-from typing import AbstractSet
 
-
-def InOut (name):
+def in_out (name):
     print("Hello "+name)
 
-def DataTypes (choice):
+def data_types (choice):
     match choice:
         case 1:
             x = 10
@@ -49,7 +47,7 @@ def DataTypes (choice):
             print("Invalid choice ❌")
 
 
-def Casting (x):
+def casting (x):
     print("Cast example:", x)
     print(f"{x} in integer =", int(x))
     print(f"{x} in string =", str(x))
@@ -64,7 +62,7 @@ class Animal:
     def sound(self):
         print("Some animal sound")
 
-    def _onlyFprAnimals(self):
+    def _only_for_animals(self):
         print("Only for animals")
 
 class Dog(Animal):
@@ -75,14 +73,17 @@ class Dog(Animal):
     def sound(self):           # Override func. so it's polymorphism
         print("Dog sound")
 
+    def for_animals(self):
+        self._only_for_animals()
+
 
 ########### Abstraction
-class lang(ABC):
+class Lang(ABC):
     @abstractmethod
     def regards(self):
         pass
 
-class Franch(lang):
+class Franch(Lang):
     def regards(self):
         print("Salut")
 
@@ -100,19 +101,19 @@ class ContextManager:
 
     def __enter__(self):
         print('enter method ')
-        return self
+        # return self
 
     def __exit__(self, exc_type, exc_value, exc_traceback):
         print('exit method ')
 
 ########### Decorates
 
-def changecase(func):
+def change_case(func):
   def toupper(x):
     return func(x).upper()
   return toupper
 
-@changecase
+@change_case
 def fun(x):
   return x
 
