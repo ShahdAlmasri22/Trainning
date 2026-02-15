@@ -6,17 +6,35 @@ class status(Enum):
 
 
 class Task:
-    task_id:int
-    task_name:str
-    task_description:str
-    task_status:status
+    __task_id:int
+    __task_name:str
+    __task_description:str
+    __task_status:status
 
     def __init__(self,task_id:int,task_name:str,task_description:str,task_status:status):
-        self.task_id = task_id
-        self.task_name = task_name
-        self.task_description = task_description
-        self.task_status = task_status
+        self.__task_id = task_id
+        self.__task_name = task_name
+        self.__task_description = task_description
+        self.__task_status = task_status
 
+    @property
+    def task_id(self):
+        return self.__task_id
+
+    @property
+    def task_status(self):
+        return self.__task_status.value
+
+    @property
+    def task_name(self):
+        return self.__task_name
+
+    @property
+    def task_description(self):
+        return self.__task_description
+
+    def update_status(self, status: status):
+        self.__task_status = status
 
 
 class ManageTask:
@@ -25,8 +43,8 @@ class ManageTask:
     def __init__(self):
         self.all_task = []
 
-    def addTask(self,obj):
-        self.all_task.append(obj)
+    def add_task(self,task:Task):
+        self.all_task.append(task)
 
     def print_all_task(self):
         if self.all_task==[]:
@@ -36,13 +54,10 @@ class ManageTask:
             print(" Id: ",task.task_id, "\n", "Name: ",task.task_name, "\n"
                   " Description: ",task.task_description, "\n", "Status: ",task.task_status, "\n\n")
 
-    def update_status(self, id: str, new_status: int):
+    def update_status(self, id: str, new_status: status):
         for task in self.all_task:
             if task.task_id == int(id):
-                if new_status == 1:
-                 task.task_status = status.PENDING.value
-                else:
-                    task.task_status = status.COMPLETED.value
+                task.update_status(new_status)
                 print("Status updated successfully ✅")
                 return
 

@@ -1,7 +1,7 @@
 import ManageTask_patterns
 
 auto_id=0
-tasks= ManageTask_patterns.ManageTask()
+# tasks= ManageTask_patterns.ManageTask()
 
 print("\n👋 Welcome to our system")
 while True:
@@ -26,9 +26,9 @@ while True:
             auto_id+=1
             name = input("Enter the task name: ")
             desc = input("Enter the description task: ")
-            status = ManageTask_patterns.status.PENDING  #by default initially the task will be pending until they work on it
-            new_task = ManageTask_patterns.Task(id, name, desc, status)
-            tasks.addTask(new_task)
+            new_task = ManageTask_patterns.Task(id, name, desc, ManageTask_patterns.status.PENDING) #by default initially the task will be pending until they work on it
+            tasks = ManageTask_patterns.ManageTask()
+            tasks.add_task(new_task)
 
         case 2:
             print("\n------- All Tasks -------")
@@ -40,17 +40,17 @@ while True:
             id=input("Enter the id of task that you want to update: ")
             new_status= input("""
             Choose 1 or 2:
-            1. Pending
-            2. Completed
+            1. pending
+            2. completed
             """)
             if new_status not in ["1", "2"]:
                 print("Invalid choice ❌")
             else:
                 if (new_status == "1"):
-                    pc=1
+                    tasks.update_status(id,ManageTask_patterns.status.PENDING)
                 else:
-                    pc=2
-                tasks.update_status(id,pc)
+                    tasks.update_status(id,ManageTask_patterns.status.COMPLETED)
+
 
         case 4:
              id = input("Enter the id of task that you want to delete: ")

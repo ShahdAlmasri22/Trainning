@@ -26,9 +26,9 @@ while True:
             auto_id+=1
             name = input("Enter the task name: ")
             desc = input("Enter the description task: ")
-            status = ManageTask_OOP.status.PENDING.value  #by default initially the task will be pending until they work on it
+            status = ManageTask_OOP.status.PENDING  #by default initially the task will be pending until they work on it
             new_task = ManageTask_OOP.Task(id, name, desc, status)
-            tasks.addTask(new_task)
+            tasks.add_task(new_task)
 
         case 2:
             print("\n------- All Tasks -------")
@@ -47,10 +47,9 @@ while True:
                 print("Invalid choice ❌")
             else:
                 if (new_status == "1"):
-                    pc=1
+                    tasks.update_status(id, ManageTask_OOP.status.PENDING)
                 else:
-                    pc=2
-                tasks.update_status(id,pc)
+                    tasks.update_status(id, ManageTask_OOP.status.COMPLETED)
 
         case 4:
              id = input("Enter the id of task that you want to delete: ")
