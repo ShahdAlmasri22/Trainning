@@ -1,6 +1,6 @@
 from enum import Enum
 
-class status(Enum):
+class Status(Enum):
     COMPLETED= "completed"
     PENDING = "pending"
 
@@ -8,9 +8,9 @@ class Task:
     __task_id:int
     __task_name:str
     __task_description:str
-    __task_status:status
+    __task_status:Status
 
-    def __init__(self,task_id:int,task_name:str,task_description:str,task_status:status):
+    def __init__(self,task_id:int,task_name:str,task_description:str,task_status:Status):
         self.__task_id = task_id
         self.__task_name = task_name
         self.__task_description = task_description
@@ -32,7 +32,7 @@ class Task:
     def task_description(self):
         return self.__task_description
 
-    def update_status(self, status: status):
+    def update_status(self, status: Status):
         self.__task_status = status
 
 
@@ -53,7 +53,7 @@ class ManageTask:
             print(" Id: ",task.task_id, "\n", "Name: ",task.task_name, "\n"
                   " Description: ",task.task_description, "\n", "Status: ",task.task_status, "\n\n")
 
-    def update_status(self, id: str, new_status: status):
+    def update_status(self, id: str, new_status: Status):
         for task in self.all_task:
             if task.task_id == int(id):
                 task.update_status(new_status)

@@ -1,6 +1,6 @@
 from enum import Enum
 
-class status(Enum):
+class Status(Enum):
     COMPLETED= "completed"
     PENDING = "pending"
 
@@ -22,9 +22,9 @@ def update_status(tasks, id: str, new_status: int):
     for task in tasks:
         if task["id"] == int(id):
             if new_status == 1:
-             task["status"] = status.PENDING.value
+             task["status"] = Status.PENDING.value
             else:
-                task["status"] = status.COMPLETED.value
+                task["status"] = Status.COMPLETED.value
             print("Status updated successfully ✅")
             return
 
