@@ -4,6 +4,7 @@ class status(Enum):
     COMPLETED= "completed"
     PENDING = "pending"
 
+
 class Task:
     __task_id:int
     __task_name:str
