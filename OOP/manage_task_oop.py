@@ -1,21 +1,20 @@
 from enum import Enum
 
-
 class Status(Enum):
     COMPLETED= "completed"
     PENDING = "pending"
 
 class Task:
-    __task_id:int
+    __task_id:int =0
     __task_name:str
     __task_description:str
     __task_status:Status
 
-    def __init__(self,task_id:int,task_name:str,task_description:str,task_status:Status):
+    def __init__(self,task_id:int,task_name:str,task_description:str):
         self.__task_id = task_id
         self.__task_name = task_name
         self.__task_description = task_description
-        self.__task_status = task_status
+        self.__task_status = Status.PENDING #by default initially the task will be pending until they work on it
 
     @property
     def task_id(self):
@@ -39,15 +38,18 @@ class Task:
 
 class ManageTask:
     all_task:list[Task]
-
+    __auto_id:int
     def __init__(self):
         self.all_task = []
+        self.__auto_id=0
 
-    def add_task(self,task:Task):
+    def add_task(self, name: str, desc: str):
+        task = Task(self.__auto_id, name, desc)
+        self.__auto_id += 1
         self.all_task.append(task)
 
     def print_all_task(self):
-        if self.all_task==[]:
+        if not self.all_task:
             print("No tasks found")
         else:
          for task in self.all_task:
