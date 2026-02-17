@@ -11,11 +11,11 @@ class Task:
     __task_description: str
     __task_status: Status
 
-    def __init__(self,task_id:int,task_name:str,task_description:str,task_status:Status):
+    def __init__(self,task_id:int,task_name:str,task_description:str):
         self.__task_id = task_id
         self.__task_name = task_name
         self.__task_description = task_description
-        self.__task_status = task_status
+        self.__task_status = Status.PENDING
 
     @property
     def task_id(self):
@@ -40,23 +40,28 @@ class Task:
 class ManageTask:
     _instance = None
     all_task:list[Task]
+    __auto_id: int
 
     def __new__(cls):
         if cls._instance is None:
             cls._instance = super(ManageTask, cls).__new__(cls)
             cls._instance.all_task = []
+            cls._instance.__auto_id = 0
         return cls._instance
 
-    def add_task(self,task:Task):
+    def add_task(self,name:str,desc:str):
+        task = Task(self.__auto_id, name, desc)
+        self.__auto_id += 1
         self.all_task.append(task)
 
+
     def print_all_task(self):
-        if self.all_task==[]:
-            print("No tasks found")
-        else:
-         for task in self.all_task:
-            print(" Id: ",task.task_id, "\n", "Name: ",task.task_name, "\n"
-                  " Description: ",task.task_description, "\n", "Status: ",task.task_status, "\n\n")
+            if self.all_task==[]:
+                print("No tasks found")
+            else:
+             for task in self.all_task:
+                print(" Id: ",task.task_id, "\n", "Name: ",task.task_name, "\n"
+                      " Description: ",task.task_description, "\n", "Status: ",task.task_status, "\n\n")
 
     def update_status(self, id: str, new_status: Status):
         for task in self.all_task:
