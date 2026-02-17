@@ -5,7 +5,7 @@ class Status(Enum):
     PENDING = "pending"
 
 class Task:
-    __task_id:int =0
+    __task_id:int 
     __task_name:str
     __task_description:str
     __task_status:Status
