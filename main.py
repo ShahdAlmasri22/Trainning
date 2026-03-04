@@ -3,6 +3,7 @@ from backend.controllers import task_controller as task_controller
 from backend.models.database import Base, engine
 from fastapi import FastAPI
 
+
 app = FastAPI()
 
 app.include_router(user_controller.api)
