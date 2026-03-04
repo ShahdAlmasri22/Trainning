@@ -5,6 +5,7 @@ from backend.models.database import session
 from backend.models.user import User
 import hashlib
 
+
 def create_user(req: user_request):
     existing_email= session.query(User).filter(User.email==req.email).first()
     if existing_email:
