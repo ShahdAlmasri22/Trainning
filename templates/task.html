@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>My Tasks</title>
+<style>
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial,
+    sans-serif;
+}
+
+body {
+    min-height:100vh;
+    background: linear-gradient(135deg, #d8ddfa, #f4e9fb);
+    padding:30px;
+}
+
+h2 {
+    color: #2f1843;
+    margin-bottom:20px;
+    text-align:center;
+}
+
+#message {
+    text-align:center;
+    color:red;
+    margin-bottom:15px;
+    font-size:14px;
+}
+
+button#addTaskBtn {
+    background: #8059a1;
+    color:white;
+    padding:10px 15px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    margin-bottom:36px;
+    margin-right: 10px;
+}
+
+button#addTaskBtn:hover {
+    background: #552f75;
+}
+
+#taskForm {
+    display:none;
+    margin-bottom:20px;
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+#taskForm input, #taskForm select {
+    padding:8px;
+    margin-bottom:10px;
+    width:100%;
+    border-radius:6px;
+    border:1px solid #ddd;
+}
+
+#taskForm button {
+    width:100%;
+    padding:10px;
+    background:#667eea;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+#taskForm button:hover {
+    background:#5563c1;
+}
+
+.tasks-container {
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap:20px;
+}
+
+.card {
+    /*background:#fff;*/
+    background: linear-gradient(135deg, #7e92e1, #8f6eac);
+    padding:17px;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    display:flex; flex-direction:column;
+    justify-content: space-between;
+}
+
+.card h3 {
+    margin-bottom:14px;
+    color: #ffffff;
+}
+
+.card p {
+    margin-bottom:10px;
+    color: #ffffff;
+    font-size:14px;
+}
+
+.card button {
+    padding:3px 6px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:14px;
+    margin-bottom:8px;
+    margin-top:6px;
+    width: 75px;
+}
+
+.card button.update {
+    background: #cbd4fd;
+    color: #000000;
+    font-size: 12px;
+}
+
+.card button.update:hover {
+    background: #4e57a8;
+}
+
+.card button.delete {
+    background: #ffc2c2;
+    color: #000000;
+    font-size: 12px;
+}
+
+.card button.delete:hover {
+    background:#c0392b;
+}
+
+button#deleteAll {
+    background: #4e57a8;
+    color:white;
+    padding:10px 15px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    margin-bottom:36px;
+}
+
+button#deleteAll:hover {
+    background: #212a71;
+}
+
+#profile {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+#profile:hover {
+    transform: scale(1.1);
+}
+
+
+#profile {
+    width:33px;
+    height:33px;
+    cursor:pointer;
+}
+
+.profile-menu {
+    display:none;
+    background:white;
+    border-radius:10px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.2);
+    padding:10px;
+    width:150px;
+}
+
+.profile-menu button {
+    width:100%;
+    padding:8px;
+    border:none;
+    background:none;
+    cursor:pointer;
+    text-align:left;
+}
+
+.profile-menu button:hover {
+    background:#eee;
+}
+
+.modal {
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.4);
+    justify-content:center;
+    align-items:center;
+}
+
+.modal-content {
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    width:300px;
+    box-shadow:0 15px 30px rgba(0,0,0,0.3);
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.modal-content input {
+    padding:8px;
+    border-radius:6px;
+    border:1px solid #ccc;
+}
+
+.modal-buttons {
+    display:flex;
+    justify-content:space-between;
+}
+
+.modal-buttons button {
+    padding:8px 12px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+#modalSave {
+    background:#667eea;
+    color:white;
+}
+
+#modalSave:hover {
+    background:#4e57a8;
+}
+
+#modalCancel {
+    background:#ddd;
+}
+
+
+</style>
+</head>
+<body>
+
+<h2>Manage issues</h2>
+
+    <div class="profile">
+        <img src="../images/profile.png" id="profile">
+        <div class="profile-menu" id="profileMenu">
+            <button id="editProfile">Edit Profile</button>
+            <button id="deleteProfile">Delete Account</button>
+            <button id="logout">Log Out</button>
+        </div>
+    </div>
+
+<div id="profileModal" class="modal">
+  <div class="modal-content">
+    <h3>Edit Profile</h3>
+
+    <input type="text" id="modalName" placeholder="New Name">
+
+    <input type="password" id="modalOldPassword" placeholder="Old Password">
+
+    <input type="password" id="modalNewPassword" placeholder="New Password">
+
+    <div class="modal-buttons">
+      <button id="modalSave">Save</button>
+      <button id="modalCancel">Cancel</button>
+    </div>
+  </div>
+</div>
+
+
+
+<p id="message"></p>
+
+<button id="addTaskBtn">+ Add Task</button>
+
+<form id="taskForm">
+    <input type="text" id="taskTitle" placeholder="Title" required>
+    <input type="text" id="taskDesc" placeholder="Description" required>
+    <select id="taskPriority">
+        <option value="LOW">Low</option>
+        <option value="MEDIUM">Medium</option>
+        <option value="HIGH">High</option>
+    </select>
+    <button type="submit">Create Task</button>
+</form>
+
+<button id="deleteAll">Delete All Tasks</button>
+
+<div class="tasks-container" id="tasksContainer"></div>
+
+<script>
+const taskForm = document.getElementById("taskForm");
+const addTaskBtn = document.getElementById("addTaskBtn");
+
+addTaskBtn.addEventListener("click", ()=>
+    taskForm.style.display = taskForm.style.display === "none" ? "block" : "none"
+);
+
+document.addEventListener("DOMContentLoaded", async () => {
+    const token = localStorage.getItem("access_token");
+
+    if (!token) {
+        window.location.replace("/users/login");
+        return;
+    }
+
+    await fetchTasks();
+});
+
+async function refreshAccessToken() {
+    const refresh_token = localStorage.getItem("refresh_token");
+
+    if (!refresh_token) {
+        window.location.replace("/users/login");
+        return null;
+    }
+
+    try {
+        const res = await fetch("/users/refresh", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${refresh_token}`
+            },
+        });
+
+        const data = await res.json();
+
+        if (res.ok && data.access_token) {
+            localStorage.setItem("access_token", data.access_token);
+            return data.access_token;
+        } else {
+            localStorage.clear();
+            window.location.href = "/users/login";
+            return null;
+        }
+
+    } catch (err) {
+        localStorage.clear();
+        window.location.href = "/users/login";
+        return null;
+    }
+}
+
+
+async function fetchTasks() {
+    const container = document.getElementById("tasksContainer");
+    const message = document.getElementById("message");
+    container.innerHTML = "";
+    message.innerText = "";
+
+    try {
+        let access_token = localStorage.getItem("access_token");
+
+        let res = await fetch("/tasks/view", {
+            method: "GET",
+            headers: { "Authorization": `Bearer ${access_token}` }
+        });
+
+        if(res.status === 401){
+            access_token = await refreshAccessToken();
+            if(!access_token) return;
+
+            res = await fetch("/tasks/view", {
+                method: "GET",
+                headers: { "Authorization": `Bearer ${access_token}` }
+            });
+        }
+
+        const data = await res.json();
+
+        if (res.ok) {
+            if(data.length === 0){
+                message.style.color="black";
+                message.innerText = "No tasks yet. Create one!";
+                return;
+            }
+            data.forEach(task=>{
+                const card = document.createElement("div");
+                card.className="card";
+                card.innerHTML=`
+                    <h3 style="color: #ece1fa; font-size: 23px">${task.title}</h3>
+                    <p style="color: #ece1fa; font-size: 19px">${task.description}</p>
+                    <p style="color: #f1e5ff; font-size: 15px">Priority: ${task.priority}</p>
+                    <button class="update">Update</button>
+                    <button class="delete">Delete</button>
+                `;
+                const btnUpdate = card.querySelector(".update");
+                const btnDelete = card.querySelector(".delete");
+
+                btnUpdate.addEventListener("click", ()=>updateTask(task));
+                btnDelete.addEventListener("click", ()=>deleteTask(task.task_id));
+
+                container.appendChild(card);
+            });
+        } else {
+            message.style.color="red";
+            message.innerText = data.message || data.detail || "❌ Could not fetch tasks";
+        }
+    } catch(err){
+        message.style.color="red";
+        message.innerText = "❌ Server connection error";
+        console.error(err);
+    }
+}
+
+
+async function createTask(e){
+    e.preventDefault();
+    const title = document.getElementById("taskTitle").value;
+    const description = document.getElementById("taskDesc").value;
+    const priority = document.getElementById("taskPriority").value;
+
+    if(!title || !description) return alert("Fill all fields");
+
+    try {
+        let access_token = localStorage.getItem("access_token");
+
+        let res = await fetch("/tasks/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${access_token}`
+            },
+            body: JSON.stringify({ title, description, priority })
+        });
+
+        if(res.status === 401){
+            access_token = await refreshAccessToken();
+            if(!access_token) return;
+
+            res = await fetch("/tasks/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${access_token}`
+                },
+                body: JSON.stringify({ title, description, priority })
+            });
+        }
+
+        const data = await res.json();
+
+        if(res.ok){
+            alert(data.message);
+            taskForm.reset();
+            taskForm.style.display = "none";
+            await fetchTasks();
+        } else {
+            alert(data.message || data.detail || "❌ Could not create task");
+        }
+
+    } catch(err){
+        alert("Server error");
+        console.error(err);
+    }
+}
+
+
+async function deleteTask(id){
+    if(!confirm("Are you sure to delete this task?")) return;
+
+    try {
+        let access_token = localStorage.getItem("access_token");
+
+        let res = await fetch(`/tasks/${id}`, {
+            method: "DELETE",
+            headers: { "Authorization": `Bearer ${access_token}` }
+        });
+
+        if(res.status === 401){
+            access_token = await refreshAccessToken();
+            if(!access_token) return;
+
+            res = await fetch(`/tasks/${id}`, {
+                method: "DELETE",
+                headers: { "Authorization": `Bearer ${access_token}` }
+            });
+        }
+
+        const data = await res.json();
+        alert(data.message || "Deleted!");
+        fetchTasks();
+
+    } catch(err){
+        alert("Server error");
+        console.error(err);
+    }
+}
+
+
+async function deleteAllTasks(){
+    if(!confirm("Delete ALL your tasks?")) return;
+
+    try {
+        let access_token = localStorage.getItem("access_token");
+
+        let res = await fetch("/tasks/all", {
+            method: "DELETE",
+            headers: { "Authorization": `Bearer ${access_token}` }
+        });
+
+        if(res.status === 401){
+            access_token = await refreshAccessToken();
+            if(!access_token) return;
+
+            res = await fetch("/tasks/all", {
+                method: "DELETE",
+                headers: { "Authorization": `Bearer ${access_token}` }
+            });
+        }
+
+        const data = await res.json();
+        alert(data.message || "All tasks deleted!");
+        fetchTasks();
+
+    } catch(err){
+        alert("Server error");
+        console.error(err);
+    }
+}
+
+
+async function updateTask(task){
+    const newTitle = prompt("New Title:", task.title);
+    const newDesc = prompt("New Description:", task.description);
+    const newPriority = prompt("New Priority (LOW, MEDIUM, HIGH):", task.priority);
+    const status = prompt("New Status (PENDING, RUNNING, COMPLETED):", task.status);
+    if(!newTitle || !newDesc || !newPriority || !status) return;
+
+    try {
+        let access_token = localStorage.getItem("access_token");
+
+        let res = await fetch(`/tasks/${task.task_id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${access_token}`
+            },
+            body: JSON.stringify({
+                title: newTitle,
+                description: newDesc,
+                priority: newPriority,
+                status: status
+            })
+        });
+
+        if(res.status === 401){
+            access_token = await refreshAccessToken();
+            if(!access_token) return;
+
+            res = await fetch(`/tasks/${task.task_id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${access_token}`
+                },
+                body: JSON.stringify({
+                    title: newTitle,
+                    description: newDesc,
+                    priority: newPriority,
+                    status: status
+                })
+            });
+        }
+
+        const data = await res.json();
+        alert(data.message || "Updated!");
+        fetchTasks();
+
+    } catch (error) {
+        alert("Server error");
+        console.error(error);
+    }
+}
+
+document.getElementById("deleteAll").addEventListener("click", deleteAllTasks);
+taskForm.addEventListener("submit", createTask);
+// document.addEventListener("DOMContentLoaded", fetchTasks);
+
+const profile = document.getElementById("profile");
+const profileMenu = document.getElementById("profileMenu");
+
+const user_id = localStorage.getItem("user_id");
+
+profile.addEventListener("click", () => {
+    profileMenu.style.display =
+        profileMenu.style.display === "block" ? "none" : "block";
+});
+
+const modal = document.getElementById("profileModal");
+const modalCancel = document.getElementById("modalCancel");
+const modalSave = document.getElementById("modalSave");
+
+document.getElementById("editProfile").addEventListener("click", () => {
+    profileMenu.style.display = "none";
+    modal.style.display = "flex";
+});
+
+modalCancel.addEventListener("click", () => {
+    modal.style.display = "none";
+});
+
+modalSave.addEventListener("click", async () => {
+
+    const newName = document.getElementById("modalName").value.trim();
+    const oldPassword = document.getElementById("modalOldPassword").value.trim();
+    const newPassword = document.getElementById("modalNewPassword").value.trim();
+
+    if(newPassword && !oldPassword){
+        alert("Old password is required");
+        return;
+    }
+
+    const body = {};
+    if(newName) body.name = newName;
+    if(oldPassword && newPassword){
+        body.old_password = oldPassword;
+        body.new_password = newPassword;
+    }
+
+    if(Object.keys(body).length === 0){
+        alert("No changes provided");
+        return;
+    }
+
+    try {
+        let access_token = localStorage.getItem("access_token");
+
+        let res = await fetch(`/users/profile/${user_id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${access_token}`
+            },
+            body: JSON.stringify(body)
+        });
+
+        if(res.status === 401){
+            access_token = await refreshAccessToken();
+            if(!access_token) return;
+
+            res = await fetch(`/users/profile/${user_id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${access_token}`
+                },
+                body: JSON.stringify(body)
+            });
+        }
+
+        const data = await res.json();
+        let msg = "";
+        if(data.detail && Array.isArray(data.detail)){
+            msg = data.detail[0].msg;
+        } else {
+            msg = data.message || data.detail || JSON.stringify(data);
+        }
+
+        alert(msg);
+
+        if(res.ok){
+            modal.style.display = "none";
+            document.getElementById("modalName").value = "";
+            document.getElementById("modalOldPassword").value = "";
+            document.getElementById("modalNewPassword").value = "";
+        }
+
+    } catch(err){
+        alert("Server error");
+        console.error(err);
+    }
+});
+
+document.getElementById("deleteProfile").addEventListener("click", async () => {
+    if(!confirm("Are you sure you want to delete your account?")) return;
+
+    try {
+        let access_token = localStorage.getItem("access_token");
+
+        let res = await fetch(`/users/${user_id}`, {
+            method: "DELETE",
+            headers: { "Authorization": `Bearer ${access_token}` }
+        });
+
+        if(res.status === 401){
+            access_token = await refreshAccessToken();
+            if(!access_token) return;
+
+            res = await fetch(`/users/${user_id}`, {
+                method: "DELETE",
+                headers: { "Authorization": `Bearer ${access_token}` }
+            });
+        }
+
+        const data = await res.json();
+
+        if(res.ok){
+            alert(data.message || "Account deleted");
+            localStorage.removeItem("access_token");
+            localStorage.removeItem("refresh_token");
+            localStorage.removeItem("user_id");
+            window.location.href = "/users/login";
+        } else {
+            alert(data.message || data.detail || "Delete failed");
+        }
+
+    } catch(err){
+        alert("Server error");
+        console.error(err);
+    }
+});
+
+document.getElementById("logout").addEventListener("click", async () => {
+    if(!confirm("Are you sure you want to Logout?")) return;
+
+    try {
+            localStorage.removeItem("access_token");
+            localStorage.removeItem("refresh_token");
+            localStorage.removeItem("user_id");
+            window.location.replace("/users/login");
+
+
+    } catch(err){
+        alert("Server error");
+        console.error(err);
+    }
+});
+</script>
+
+</body>
+</html>
