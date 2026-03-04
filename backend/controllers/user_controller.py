@@ -2,7 +2,6 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, Request
 from starlette.responses import  JSONResponse
 from starlette.templating import Jinja2Templates
-
 from backend.dto.user_req import login as login_dto
 from backend.dto.user_req import profile as  profile
 
