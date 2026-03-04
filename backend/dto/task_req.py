@@ -9,7 +9,6 @@ class task_request(BaseModel):
     priority: Priority
 
 
-
 class task_update_request(BaseModel):
     title : str | None = None
     description: str | None = None
