@@ -1,5 +1,4 @@
 from typing import Annotated
-
 from fastapi import Depends, Request
 from fastapi.routing import APIRouter
 from starlette.templating import Jinja2Templates
