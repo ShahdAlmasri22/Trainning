@@ -1,11 +1,9 @@
 from fastapi import HTTPException
 from backend.dto.task_req import task_request, task_update_request
-from backend.models.database import session
 from backend.models.task import Task, Status
 
 
-
-def create_task(req : task_request, user_id):
+def create_task(req : task_request, user_id, session):
     new_task = Task(title=req.title,description= req.description,status= Status.PENDING,
                     priority= req.priority, user_id=user_id)
 
@@ -24,14 +22,14 @@ def create_task(req : task_request, user_id):
         session.rollback()
         raise HTTPException(
             status_code=500,
-            detail=f"Error creating user: {str(e)}"
+            detail=f"Error creating task: {str(e)}"
         )
 
 
-def view_task(user_id):
+def view_task(user_id, session):
     tasks = session.query(Task).filter(Task.user_id == user_id).all()
 
-    if tasks is None:
+    if not tasks:
         raise HTTPException(
             status_code=404,
             detail="There are no tasks"
@@ -51,7 +49,7 @@ def view_task(user_id):
     return result
 
 
-def update_task(task_id: int , req : task_update_request, user_id:str):
+def update_task(task_id: int , req : task_update_request, user_id, session):
     task=session.query(Task).filter(Task.task_id == task_id).first()
     if task is None:
         raise HTTPException(
@@ -78,14 +76,15 @@ def update_task(task_id: int , req : task_update_request, user_id:str):
            "statusCode": 201,
            "message": "Task updated successfully"
        }
-    except:
+    except Exception as e:
+        session.rollback()
         raise HTTPException(
             status_code=500,
             detail="Error updating task"
         )
 
 
-def delete_task(task_id, user_id):
+def delete_task(task_id, user_id, session):
     task=session.query(Task).filter(Task.task_id == task_id).first()
     if task is None:
         raise HTTPException(
@@ -104,16 +103,17 @@ def delete_task(task_id, user_id):
             "statusCode": 201,
             "message": "Task deleted successfully"
             }
-    except:
+    except Exception as e:
+        session.rollback()
         raise HTTPException(
             status_code=500,
             detail="Error deleting task"
         )
 
 
-def delete_all_task(user_id):
+def delete_all_task(user_id, session):
     tasks=session.query(Task).filter(Task.user_id == user_id).all()
-    if tasks is None:
+    if not tasks:
         raise HTTPException(
             status_code=404,
             detail="There are no tasks"
@@ -121,12 +121,13 @@ def delete_all_task(user_id):
     try:
         for task in tasks:
             session.delete(task)
-            session.commit()
+        session.commit()
         return {
             "statusCode": 201,
             "message": "All tasks deleted successfully"
             }
-    except:
+    except Exception as e:
+        session.rollback()
         raise HTTPException(
             status_code=500,
             detail="Error deleting tasks"
