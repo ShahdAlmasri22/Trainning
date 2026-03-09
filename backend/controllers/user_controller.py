@@ -2,6 +2,7 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, Request
 from starlette.responses import  JSONResponse
 from starlette.templating import Jinja2Templates
+
 from backend.dto.user_req import login as login_dto
 from backend.dto.user_req import profile as  profile
 
@@ -52,5 +53,5 @@ async def update_info(req: profile, user_id : int, user_id_token:Annotated[str, 
     return user_service.update_info(req, user_id, user_id_token)
 
 @api.delete("/{user_id}")
-async def update_info(user_id : int, user_id_token:Annotated[str, Depends(get_current_user)] ):
+async def delete_account(user_id : int, user_id_token:Annotated[str, Depends(get_current_user)] ):
     return user_service.delete_account(user_id, user_id_token)
