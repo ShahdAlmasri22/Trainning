@@ -17,6 +17,7 @@ class user_request(BaseModel):
         return passw
 
 
+
 class login(BaseModel):
     email: EmailStr
     password: str

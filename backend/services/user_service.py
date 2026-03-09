@@ -1,11 +1,10 @@
 from fastapi import HTTPException
 from backend.dto.user_req import user_request, login, profile
 from backend.auth import create_access_token, decode_token, create_refresh_token
-from backend.models.database import session
 from backend.models.user import User
 import hashlib
 
-def create_user(req: user_request):
+def create_user(req: user_request, session):
     existing_email= session.query(User).filter(User.email==req.email).first()
     if existing_email:
         raise HTTPException(
@@ -46,7 +45,7 @@ def create_user(req: user_request):
         )
 
 
-def log_in(req: login):
+def log_in(req: login, session):
     user=session.query(User).filter(User.email==req.email).first()
     if not user:
         raise HTTPException(
@@ -73,7 +72,7 @@ def log_in(req: login):
         )
 
 
-def update_info(req: profile, user_id : int, user_id_token: str):
+def update_info(req: profile, user_id : int, user_id_token: str, session):
     user = session.query(User).filter(User.user_id==user_id).first()
     if not user:
         raise HTTPException(
@@ -113,6 +112,7 @@ def update_info(req: profile, user_id : int, user_id_token: str):
             "message": "User info updated successfully",
         }
     except Exception as e:
+        session.rollback()
         raise HTTPException(
             status_code=500,
             detail=f"Error updating user: {str(e)}"
@@ -122,7 +122,7 @@ def hash_password(password: str):
     return hashlib.sha256(password.strip().encode('utf-8')).hexdigest()
 
 
-def delete_account(user_id, user_id_token):
+def delete_account(user_id, user_id_token, session):
     user= session.query(User).filter(User.user_id == user_id).first()
     if user is None:
         raise HTTPException(
@@ -141,7 +141,8 @@ def delete_account(user_id, user_id_token):
             "statusCode": 201,
             "message": "User deleted successfully"
         }
-    except:
+    except Exception as e:
+        session.rollback()
         raise HTTPException(
             status_code=500,
             detail="Error deleting user"
