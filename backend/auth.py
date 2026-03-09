@@ -5,7 +5,6 @@ from dotenv import load_dotenv
 from fastapi import HTTPException, Depends
 from fastapi.security import OAuth2PasswordBearer
 
-
 load_dotenv()
 secret_key = os.getenv("SECRET_KEY")
 alg = os.getenv("ALGORITHM")
@@ -18,7 +17,7 @@ def get_current_user(token: str = Depends(oauth2_scheme)):
 
 def create_access_token(user_id: int):
 
-    expire = datetime.now(timezone.utc) + timedelta(seconds=10)
+    expire = datetime.now(timezone.utc) + timedelta(minutes=30)
     payload = {
         "user_id": user_id,
         "exp": expire
@@ -48,7 +47,7 @@ def decode_token(token: str):
                 detail="Invalid token payload"
             )
 
-        return user_id
+        return int(user_id)
 
     except jwt.ExpiredSignatureError:
         raise HTTPException(
