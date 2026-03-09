@@ -1,12 +1,12 @@
 from typing import Annotated
 from fastapi import APIRouter, Depends, Request
+from sqlalchemy.orm import Session
 from starlette.responses import  JSONResponse
 from starlette.templating import Jinja2Templates
-
 from backend.dto.user_req import login as login_dto
 from backend.dto.user_req import profile as  profile
-
 from backend.dto.user_req import user_request
+from backend.models.database import get_db
 from backend.services import user_service as user_service
 from backend.auth import get_current_user, create_access_token
 
@@ -24,18 +24,18 @@ async def login_page(request: Request):
 
 
 @api.post("/")
-async def create_user(req: user_request):
+async def create_user(req: user_request, session: Session = Depends(get_db)):
     try:
-        user_resp = user_service.create_user(req)
+        user_resp = user_service.create_user(req, session)
         return JSONResponse(status_code=201, content=user_resp)
     except Exception as e:
         return JSONResponse(status_code=500, content={"message": f"❌ {str(e)}"})
 
 
 @api.post("/login")
-async def login_user(req: login_dto):
+async def login_user(req: login_dto, session: Session = Depends(get_db)):
     try:
-        user =user_service.log_in(req)
+        user =user_service.log_in(req, session)
         return JSONResponse(status_code=201, content=user)
     except Exception as e:
         return JSONResponse(status_code=500, content={"message": f"❌ {str(e)}"})
@@ -49,9 +49,9 @@ async def refresh(user_id_token:Annotated[str, Depends(get_current_user)] ):
 
 
 @api.patch("/profile/{user_id}")
-async def update_info(req: profile, user_id : int, user_id_token:Annotated[str, Depends(get_current_user)] ):
-    return user_service.update_info(req, user_id, user_id_token)
+async def update_info(req: profile, user_id : int, user_id_token:Annotated[str, Depends(get_current_user)], session: Session = Depends(get_db)):
+    return user_service.update_info(req, user_id, user_id_token, session)
 
 @api.delete("/{user_id}")
-async def delete_account(user_id : int, user_id_token:Annotated[str, Depends(get_current_user)] ):
-    return user_service.delete_account(user_id, user_id_token)
+async def delete_account(user_id : int, user_id_token:Annotated[str, Depends(get_current_user)],session: Session = Depends(get_db) ):
+    return user_service.delete_account(user_id, user_id_token, session)
