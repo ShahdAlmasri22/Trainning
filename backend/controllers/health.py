@@ -3,7 +3,6 @@ from sqlalchemy.orm import Session
 from typing import Annotated
 from fastapi import APIRouter, HTTPException, Request, Depends
 from sqlalchemy import text
-
 from backend.models.database import engine, get_db
 from backend.services import logged_service
 
