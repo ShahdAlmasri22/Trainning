@@ -1,7 +1,5 @@
 from urllib.request import Request
-
 from fastapi import HTTPException
-
 from sqlalchemy import or_
 from backend.models.logged import Logged
 from backend.models.user import User, Role
