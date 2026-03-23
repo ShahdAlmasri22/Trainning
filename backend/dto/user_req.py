@@ -1,10 +1,13 @@
 from pydantic import BaseModel, EmailStr, field_validator, Field
 import re
 
+from backend.models.user import Role
+
+
 class user_request(BaseModel):
-    name: str
-    email: EmailStr
-    password:str= Field(...,min_length=6, max_length=20)
+    name: str = Field(max_length=25)
+    email: EmailStr = Field(max_length=30)
+    password: str = Field(...,min_length=6, max_length=20)
 
     @field_validator("password")
     def password_strength(cls, passw):
@@ -23,9 +26,10 @@ class login(BaseModel):
 
 
 class profile(BaseModel):
-    name: str | None = None
+    name: str | None = Field(default=None, max_length=25)
     old_password: str | None = None
-    new_password: str | None = None
+    new_password: str | None = Field(default=None,min_length=6, max_length=20)
+    role: Role | None = None
 
     @field_validator("new_password")
     def password_strength(cls, passw):

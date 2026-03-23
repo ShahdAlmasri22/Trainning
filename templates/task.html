@@ -84,7 +84,6 @@ button#addTaskBtn:hover {
 }
 
 .card {
-    /*background:#fff;*/
     background: linear-gradient(135deg, #7e92e1, #8f6eac);
     padding:17px;
     border-radius:15px;
@@ -149,12 +148,6 @@ button#deleteAll:hover {
     background: #212a71;
 }
 
-#profile {
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-}
-
 #profile:hover {
     transform: scale(1.1);
 }
@@ -172,7 +165,7 @@ button#deleteAll:hover {
     border-radius:10px;
     box-shadow:0 8px 20px rgba(0,0,0,0.2);
     padding:10px;
-    width:150px;
+    width:160px;
 }
 
 .profile-menu button {
@@ -208,11 +201,25 @@ button#deleteAll:hover {
     gap:10px;
 }
 
-.modal-content input {
+.modal-content {
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    width:300px;
+    box-shadow:0 15px 30px rgba(0,0,0,0.3);
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    position:relative;
+}
+
+.modal-content input  {
     padding:8px;
     border-radius:6px;
     border:1px solid #ccc;
 }
+
+
 
 .modal-buttons {
     display:flex;
@@ -239,6 +246,204 @@ button#deleteAll:hover {
     background:#ddd;
 }
 
+.stats-bar{
+display:flex;
+justify-content:center;
+margin-bottom:20px;
+}
+
+.total-box{
+    background:white;
+    padding:10px 20px;
+    border-radius:10px;
+    box-shadow:0 6px 15px rgba(0,0,0,0.15);
+    font-weight:bold;
+    color:#4e57a8;
+}
+
+.loading{
+    display:none;
+    justify-content:center;
+    align-items:center;
+    margin:20px;
+}
+
+.spinner{
+    width:35px;
+    height:35px;
+    border:4px solid #eee;
+    border-top:4px solid #667eea;
+    border-radius:50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin{
+    0%{transform:rotate(0deg)}
+    100%{transform:rotate(360deg)}
+}
+
+#taskEditorModal {
+    display:none;
+    position:fixed;
+    inset:0;
+    background: rgba(0,0,0,0.5);
+    justify-content:center;
+    align-items:center;
+    z-index: 999;
+}
+
+#taskEditorModal .editor-content {
+    background: #fefefe;
+    padding: 30px 25px;
+    border-radius: 20px;
+    width: 350px;
+    max-width: 90%;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    display:flex;
+    flex-direction: column;
+    gap: 12px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    position:relative;
+}
+
+#taskEditorModal h3 {
+    text-align:center;
+    color: #212a71;
+    font-size: 22px;
+    margin-bottom:10px;
+}
+
+#taskEditorModal input, #taskEditorModal select {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    width: 100%;
+}
+
+#taskEditorModal .editor-buttons {
+    display:flex;
+    justify-content:space-between;
+    margin-top: 10px;
+}
+
+#taskEditorModal .editor-buttons button {
+    flex:1;
+    margin:0 5px;
+    padding: 10px 0;
+    border:none;
+    border-radius: 10px;
+    cursor:pointer;
+    font-weight:bold;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+#taskEditorModal .editor-buttons button.saveBtn {
+    background: #4e57a8;
+    color:white;
+}
+
+#taskEditorModal .editor-buttons button.saveBtn:hover {
+    background:#667eea;
+}
+
+#taskEditorModal .editor-buttons button.cancelBtn {
+    background: #eee;
+    color:#333;
+}
+
+#taskEditorModal .editor-buttons button.cancelBtn:hover {
+    background:#ccc;
+}
+
+
+.tasks-per-page {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#tasksPerPageSelect , #skip{
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background: #9373af;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+#tasksPerPageSelect:hover , #skip:hover{
+    background: #7e5ba3;
+}
+
+#pagination {
+    display: flex;
+    gap: 8px;
+    margin-top: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#pagination button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #7e92e1;
+    color: white;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+#pagination button:hover {
+    background: #4e57a8;
+}
+
+#pagination button.active {
+    background: #212a71;
+    color: white;
+    font-weight: bold;
+    transform: scale(1.1);
+}
+
+ #statusFilter, #priorityFilter{
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background: #7e92e1;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 20px;
+    margin-right:7px;
+}
+
+ .close{
+    position:absolute;
+    top:10px;
+    right:15px;
+    font-size:25px;
+    cursor:pointer;
+    color:#555;
+}
+
+.close:hover{
+    color:black;
+}
+
+#search{
+    color: black;
+    font-size:17px;
+    padding: 6px ;
+    margin-left:110px;
+    margin-bottom: 20px;
+    border-radius: 25px;
+    border-color: #7e92e1;
+    width: 30%;
+}
 
 </style>
 </head>
@@ -246,9 +451,11 @@ button#deleteAll:hover {
 
 <h2>Manage issues</h2>
 
+
     <div class="profile">
         <img src="../images/profile.png" id="profile">
         <div class="profile-menu" id="profileMenu">
+            <button id="userManagement">User management</button>
             <button id="editProfile">Edit Profile</button>
             <button id="deleteProfile">Delete Account</button>
             <button id="logout">Log Out</button>
@@ -257,6 +464,8 @@ button#deleteAll:hover {
 
 <div id="profileModal" class="modal">
   <div class="modal-content">
+
+    <span class="close" id="closeProfileModal">x</span>
     <h3>Edit Profile</h3>
 
     <input type="text" id="modalName" placeholder="New Name">
@@ -276,6 +485,7 @@ button#deleteAll:hover {
 
 <p id="message"></p>
 
+
 <button id="addTaskBtn">+ Add Task</button>
 
 <form id="taskForm">
@@ -286,14 +496,114 @@ button#deleteAll:hover {
         <option value="MEDIUM">Medium</option>
         <option value="HIGH">High</option>
     </select>
-    <button type="submit">Create Task</button>
+    <button id="createTask" type="submit">Create Task</button>
 </form>
+
+<div id="taskEditorModal">
+  <div class="editor-content">
+
+    <span class="close" id="closeEditorModal" >x</span>
+    <h3>Task Editor</h3>
+    <input type="text" id="editorTitle" placeholder="Task Title" required>
+    <input type="text" id="editorDesc" placeholder="Task Description" required>
+    <select id="editorPriority">
+      <option value="LOW">Low</option>
+      <option value="MEDIUM">Medium</option>
+      <option value="HIGH">High</option>
+    </select>
+    <select id="editorStatus">
+      <option value="PENDING">Pending</option>
+      <option value="RUNNING">Running</option>
+      <option value="COMPLETED">Completed</option>
+    </select>
+    <div class="editor-buttons">
+      <button class="saveBtn" id="editorSave">Save</button>
+      <button class="cancelBtn" id="editorCancel">Cancel</button>
+    </div>
+  </div>
+</div>
 
 <button id="deleteAll">Delete All Tasks</button>
 
+<label style="margin-right:8px; margin-left:10px; font-weight:bold;">Sort by:</label>
+<select id="sortTasks" style="padding:8px 20px; background: #9f7ec6; color: white; border-radius:8px;">
+    <option value="created_at">Newest</option>
+    <option value="priority">Priority</option>
+    <option value="status">Status</option>
+    <option value="title">Title</option>
+</select>
+
+<label style="margin-right:8px; margin-left:10px; font-weight:bold;">Order by:</label>
+<select id="orderTasks" style="padding:8px 16px; background: #9373af; color: white; border-radius:8px;">
+    <option value="desc">desc</option>
+    <option value="asc">asc</option>
+</select>
+
+<div>
+     <div class="tasks-per-page">
+        Show
+        <select id="tasksPerPageSelect">
+            <option value="5">5</option>
+            <option value="8">8</option>
+            <option value="10" selected>10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+        </select>
+        tasks per page
+    ,Skip
+    <select id="skip">
+            <option value="0" selected>0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3" >3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+    of tasks
+     </div>
+</div>
+
+<div>
+    Filter by Priority:
+    <select id="statusFilter">
+    <option value="">All Status</option>
+    <option value="PENDING">Pending</option>
+    <option value="RUNNING">Running</option>
+    <option value="COMPLETED">Completed</option>
+    </select>
+    Status:
+    <select id="priorityFilter">
+    <option value="">All Priority</option>
+    <option value="HIGH">High</option>
+    <option value="MEDIUM">Medium</option>
+    <option value="LOW">Low</option>
+    </select>
+
+    <input type="search" id="search" autocomplete="off" placeholder="search..." >
+
+</div>
+
+
+<div class="stats-bar">
+    <div class="total-box">
+        Total Tasks: <span id="totalTasks">0</span>
+    </div>
+</div>
+
+<div class="loading" id="loading">
+    <div class="spinner"></div>
+</div>
+
+
 <div class="tasks-container" id="tasksContainer"></div>
 
+<div id="pagination"></div>
+
+
+
 <script>
+
+
 const taskForm = document.getElementById("taskForm");
 const addTaskBtn = document.getElementById("addTaskBtn");
 
@@ -302,6 +612,7 @@ addTaskBtn.addEventListener("click", ()=>
 );
 
 document.addEventListener("DOMContentLoaded", async () => {
+    await health()
     const token = localStorage.getItem("access_token");
 
     if (!token) {
@@ -310,6 +621,43 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     await fetchTasks();
+});
+
+
+const profileModal = document.getElementById("profileModal");
+
+document.getElementById("closeProfileModal").onclick = () => {
+    profileModal.style.display = "none";
+};
+
+document.getElementById("closeEditorModal").onclick = () => {
+    taskEditorModal.style.display = "none";
+};
+
+document.addEventListener("keydown", function(e){
+
+    if(e.key === "Escape"){
+
+        profileModal.style.display = "none";
+        taskEditorModal.style.display = "none";
+
+    }
+
+});
+
+window.addEventListener("click", function(event){
+
+    const profileModal = document.getElementById("profileModal");
+    const taskEditorModal = document.getElementById("taskEditorModal");
+
+    if(event.target === profileModal){
+        profileModal.style.display = "none";
+    }
+
+    if(event.target === taskEditorModal){
+        taskEditorModal.style.display = "none";
+    }
+
 });
 
 async function refreshAccessToken() {
@@ -347,78 +695,73 @@ async function refreshAccessToken() {
     }
 }
 
+function formatDate(dateString){
+    const date = new Date(dateString);
 
-async function fetchTasks() {
-    const container = document.getElementById("tasksContainer");
-    const message = document.getElementById("message");
-    container.innerHTML = "";
-    message.innerText = "";
+    return date.toLocaleString("en-GB", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+    });
+}
 
+async function health(){
     try {
         let access_token = localStorage.getItem("access_token");
 
-        let res = await fetch("/tasks/view", {
+        let res = await fetch("/health", {
             method: "GET",
-            headers: { "Authorization": `Bearer ${access_token}` }
+            headers: {
+                "Authorization": `Bearer ${access_token}`
+            },
         });
 
         if(res.status === 401){
             access_token = await refreshAccessToken();
             if(!access_token) return;
 
-            res = await fetch("/tasks/view", {
+            res = await fetch("/health", {
                 method: "GET",
-                headers: { "Authorization": `Bearer ${access_token}` }
+                headers: {
+                    "Authorization": `Bearer ${access_token}`
+                },
             });
         }
-
         const data = await res.json();
 
-        if (res.ok) {
-            if(data.length === 0){
-                message.style.color="black";
-                message.innerText = "No tasks yet. Create one!";
-                return;
-            }
-            data.forEach(task=>{
-                const card = document.createElement("div");
-                card.className="card";
-                card.innerHTML=`
-                    <h3 style="color: #ece1fa; font-size: 23px">${task.title}</h3>
-                    <p style="color: #ece1fa; font-size: 19px">${task.description}</p>
-                    <p style="color: #f1e5ff; font-size: 15px">Priority: ${task.priority}</p>
-                    <button class="update">Update</button>
-                    <button class="delete">Delete</button>
-                `;
-                const btnUpdate = card.querySelector(".update");
-                const btnDelete = card.querySelector(".delete");
-
-                btnUpdate.addEventListener("click", ()=>updateTask(task));
-                btnDelete.addEventListener("click", ()=>deleteTask(task.task_id));
-
-                container.appendChild(card);
-            });
-        } else {
-            message.style.color="red";
-            message.innerText = data.message || data.detail || "❌ Could not fetch tasks";
+        if (data.app !== "ok" && data.database !== "ok") {
+            alert("Server and Database are down!");
+        } else if (data.app !== "ok") {
+            alert("Server is down!");
+        } else if (data.database !== "ok") {
+            alert("Database connection is down!");
         }
-    } catch(err){
-        message.style.color="red";
-        message.innerText = "❌ Server connection error";
+    }
+     catch(err){
+        message.style.color = "red";
+        message.innerText = "❌ Server error";
         console.error(err);
     }
 }
-
 
 async function createTask(e){
     e.preventDefault();
     const title = document.getElementById("taskTitle").value;
     const description = document.getElementById("taskDesc").value;
     const priority = document.getElementById("taskPriority").value;
+    const message = document.getElementById("message");
 
     if(!title || !description) return alert("Fill all fields");
 
+    let createTaskBtn = document.getElementById("createTask");
+    createTaskBtn.disabled = true;
+    createTaskBtn.style.background =  "#424141"
+    createTaskBtn.innerText = "Creating...";
     try {
+        await health()
+
         let access_token = localStorage.getItem("access_token");
 
         let res = await fetch("/tasks/", {
@@ -446,26 +789,59 @@ async function createTask(e){
 
         const data = await res.json();
 
-        if(res.ok){
-            alert(data.message);
+       if(res.ok){
             taskForm.reset();
             taskForm.style.display = "none";
             await fetchTasks();
+            message.style.color = "green";
+            message.innerText = data.message || "Task created successfully!";
+            setTimeout(() => { message.innerText = ""; }, 3000);
         } else {
-            alert(data.message || data.detail || "❌ Could not create task");
+            message.style.color = "red";
+
+            if(data.detail && Array.isArray(data.detail)){
+                const title2 = document.getElementById("taskTitle")
+                const desc = document.getElementById("taskDesc")
+                const errors = data.detail.map(err => {
+                    const field = err.loc[1];
+                    if (field === "title"){
+                        title2.style.border= "2px solid red";
+                    }
+                    if(field === "description"){
+                        desc.style.border= "2px solid red";
+                    }
+                    return `${field} : ${err.msg}`;
+                }).join("\n");
+                message.innerText = errors;
+                setTimeout(() => { message.innerText = ""; }, 5000);
+            } else
+                message.innerText = data.msg || data.message || "❌ Could not create task";
+                setTimeout(() => { message.innerText = ""; }, 3000);
         }
 
     } catch(err){
-        alert("Server error");
+        message.style.color = "red";
+        message.innerText = "❌ Server error";
         console.error(err);
     }
+    finally {
+        createTaskBtn.disabled = false;
+        createTaskBtn.style.background = "#667eea"
+        createTaskBtn.innerText = "Create Task"
+    }
+
 }
 
 
-async function deleteTask(id){
+async function deleteTask(id,btn){
+    const message = document.getElementById("message");
+    message.innerText = "";
+
     if(!confirm("Are you sure to delete this task?")) return;
 
+    btn.disabled=true;
     try {
+        await health()
         let access_token = localStorage.getItem("access_token");
 
         let res = await fetch(`/tasks/${id}`, {
@@ -484,20 +860,40 @@ async function deleteTask(id){
         }
 
         const data = await res.json();
-        alert(data.message || "Deleted!");
-        fetchTasks();
+
+        if(res.ok){
+            await fetchTasks();
+            message.style.color = "green";
+            message.innerText = data.message || "Task deleted successfully!";
+            setTimeout(() => message.innerText = "", 3000);
+        } else {
+            message.style.color = "red";
+            message.innerText = data.message || data.detail || "❌ Could not delete task";
+        }
 
     } catch(err){
-        alert("Server error");
+        message.style.color = "red";
+        message.innerText = "❌ Server error";
         console.error(err);
+    }
+    finally {
+        btn.disabled=false;
     }
 }
 
 
 async function deleteAllTasks(){
+    const message = document.getElementById("message");
+    message.innerText = "";
+
     if(!confirm("Delete ALL your tasks?")) return;
 
+    deleteAllBtn =document.getElementById("deleteAll")
+    deleteAllBtn.disabled=true;
+    deleteAllBtn.innerText = "Deleting ..."
+    deleteAllBtn.style.background = "#424141"
     try {
+        await health()
         let access_token = localStorage.getItem("access_token");
 
         let res = await fetch("/tasks/all", {
@@ -516,72 +912,115 @@ async function deleteAllTasks(){
         }
 
         const data = await res.json();
-        alert(data.message || "All tasks deleted!");
-        fetchTasks();
+
+        if(res.ok){
+            await fetchTasks();
+            message.style.color = "green";
+            message.innerText = data.message || "All tasks deleted!";
+            setTimeout(() => message.innerText = "", 3000);
+        } else {
+            message.style.color = "red";
+            message.innerText = data.message || data.detail || "❌ Could not delete all tasks";
+            setTimeout(() => message.innerText = "", 3000);
+        }
 
     } catch(err){
-        alert("Server error");
+        message.style.color = "red";
+        message.innerText = "❌ Server error";
         console.error(err);
+    }
+    finally {
+        deleteAllBtn.disabled=false;
+        deleteAllBtn.innerText = "Delete All Tasks"
+        deleteAllBtn.style.background = "#4e57a8"
     }
 }
 
 
-async function updateTask(task){
-    const newTitle = prompt("New Title:", task.title);
-    const newDesc = prompt("New Description:", task.description);
-    const newPriority = prompt("New Priority (LOW, MEDIUM, HIGH):", task.priority);
-    const status = prompt("New Status (PENDING, RUNNING, COMPLETED):", task.status);
-    if(!newTitle || !newDesc || !newPriority || !status) return;
+const taskEditorModal = document.getElementById("taskEditorModal");
+const editorTitle = document.getElementById("editorTitle");
+const editorDesc = document.getElementById("editorDesc");
+const editorPriority = document.getElementById("editorPriority");
+const editorStatus = document.getElementById("editorStatus");
+const editorSave = document.getElementById("editorSave");
+const editorCancel = document.getElementById("editorCancel");
 
+let editingTaskId = null;
+
+function openTaskEditor(task){
+    editingTaskId = task.task_id;
+    editorTitle.value = task.title;
+    editorDesc.value = task.description;
+    editorPriority.value = task.priority;
+    editorStatus.value = task.status;
+    taskEditorModal.style.display = "flex";
+}
+
+editorCancel.addEventListener("click", () => {
+    taskEditorModal.style.display = "none";
+});
+
+editorSave.addEventListener("click", async () => {
+    const title = editorTitle.value.trim();
+    const desc = editorDesc.value.trim();
+    const priority = editorPriority.value;
+    const status = editorStatus.value;
+    const message = document.getElementById("message");
+
+    if(!title || !desc){
+        alert("Title and description are required");
+        return;
+    }
+
+    editorSave.disabled=true;
     try {
         let access_token = localStorage.getItem("access_token");
-
-        let res = await fetch(`/tasks/${task.task_id}`, {
-            method: "PATCH",
+        let res = await fetch(`/tasks/${editingTaskId}`, {
+            method:"PATCH",
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${access_token}`
+                "Content-Type":"application/json",
+                "Authorization":`Bearer ${access_token}`
             },
-            body: JSON.stringify({
-                title: newTitle,
-                description: newDesc,
-                priority: newPriority,
-                status: status
-            })
+            body: JSON.stringify({title, description: desc, priority, status})
         });
 
         if(res.status === 401){
             access_token = await refreshAccessToken();
             if(!access_token) return;
-
-            res = await fetch(`/tasks/${task.task_id}`, {
-                method: "PATCH",
+            res = await fetch(`/tasks/${editingTaskId}`, {
+                method:"PATCH",
                 headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${access_token}`
+                    "Content-Type":"application/json",
+                    "Authorization":`Bearer ${access_token}`
                 },
-                body: JSON.stringify({
-                    title: newTitle,
-                    description: newDesc,
-                    priority: newPriority,
-                    status: status
-                })
+                body: JSON.stringify({title, description: desc, priority, status})
             });
         }
 
         const data = await res.json();
-        alert(data.message || "Updated!");
-        fetchTasks();
 
-    } catch (error) {
-        alert("Server error");
-        console.error(error);
+        if(res.ok){
+            await fetchTasks();
+            message.style.color = "green";
+            message.innerText = data.message || "Task updated successfully!";
+            setTimeout(() => message.innerText="", 3000);
+            taskEditorModal.style.display = "none";
+        } else {
+            message.style.color = "red";
+            message.innerText = data.message || data.detail || "❌ Could not update task";
+        }
+    } catch(err){
+        message.style.color = "red";
+        message.innerText = "❌ Server error";
+        console.error(err);
     }
-}
+    finally {
+        editorSave.disabled=false;
+    }
+});
 
 document.getElementById("deleteAll").addEventListener("click", deleteAllTasks);
 taskForm.addEventListener("submit", createTask);
-// document.addEventListener("DOMContentLoaded", fetchTasks);
 
 const profile = document.getElementById("profile");
 const profileMenu = document.getElementById("profileMenu");
@@ -602,18 +1041,34 @@ document.getElementById("editProfile").addEventListener("click", () => {
     modal.style.display = "flex";
 });
 
+document.getElementById("userManagement").addEventListener("click", () => {
+    role = localStorage.getItem("role");
+    if(role === "ADMIN"){
+    window.location.href = "/users/user_mang";
+    }
+    else{
+        const message = document.getElementById("message");
+        message.style.color = "red";
+        message.innerText = "You don't have permission"
+        setTimeout(() => message.innerText = "", 3000);
+    }
+});
+
 modalCancel.addEventListener("click", () => {
     modal.style.display = "none";
 });
 
 modalSave.addEventListener("click", async () => {
+    const message = document.getElementById("message");
+    message.innerText = "";
 
     const newName = document.getElementById("modalName").value.trim();
     const oldPassword = document.getElementById("modalOldPassword").value.trim();
     const newPassword = document.getElementById("modalNewPassword").value.trim();
 
     if(newPassword && !oldPassword){
-        alert("Old password is required");
+        message.style.color = "red";
+        message.innerText = "Old password is required";
         return;
     }
 
@@ -625,10 +1080,12 @@ modalSave.addEventListener("click", async () => {
     }
 
     if(Object.keys(body).length === 0){
-        alert("No changes provided");
+        message.style.color = "red";
+        message.innerText = "No changes provided";
         return;
     }
 
+    modalSave.disabled=true;
     try {
         let access_token = localStorage.getItem("access_token");
 
@@ -656,31 +1113,36 @@ modalSave.addEventListener("click", async () => {
         }
 
         const data = await res.json();
-        let msg = "";
-        if(data.detail && Array.isArray(data.detail)){
-            msg = data.detail[0].msg;
-        } else {
-            msg = data.message || data.detail || JSON.stringify(data);
-        }
-
-        alert(msg);
+        let msg = data.message || data.detail || "❌ Could not update profile";
 
         if(res.ok){
+            message.style.color = "green";
+            message.innerText = msg;
             modal.style.display = "none";
             document.getElementById("modalName").value = "";
             document.getElementById("modalOldPassword").value = "";
             document.getElementById("modalNewPassword").value = "";
+            setTimeout(() => message.innerText = "", 3000);
+        } else {
+            message.style.color = "red";
+            message.innerText = msg;
         }
 
     } catch(err){
-        alert("Server error");
+        message.style.color = "red";
+        message.innerText = "❌ Server error";
         console.error(err);
+    }
+    finally {
+        modalSave.disabled=false;
     }
 });
 
 document.getElementById("deleteProfile").addEventListener("click", async () => {
     if(!confirm("Are you sure you want to delete your account?")) return;
 
+    let deleteProfile = document.getElementById("deleteProfile");
+    deleteProfile.disabled=true;
     try {
         let access_token = localStorage.getItem("access_token");
 
@@ -715,6 +1177,9 @@ document.getElementById("deleteProfile").addEventListener("click", async () => {
         alert("Server error");
         console.error(err);
     }
+    finally {
+        deleteProfile.disabled=false;
+    }
 });
 
 document.getElementById("logout").addEventListener("click", async () => {
@@ -732,6 +1197,436 @@ document.getElementById("logout").addEventListener("click", async () => {
         console.error(err);
     }
 });
+
+
+let currentPage = 1;
+let tasksPerPage = 10;
+const message = document.getElementById("message");
+
+async function fetchTasks(sort_by="created_at", order="desc", page=currentPage){
+    const container = document.getElementById("tasksContainer");
+    const message = document.getElementById("message");
+    const loading = document.getElementById("loading");
+    const totalTasks = document.getElementById("totalTasks");
+    const baseSkip = parseInt(document.getElementById("skip").value);
+    const skip = baseSkip + ((page - 1) * tasksPerPage);
+
+    container.innerHTML = "";
+    message.innerText = "";
+    totalTasks.innerText = "0";
+
+    loading.style.display = "flex";
+
+    try {
+        let access_token = localStorage.getItem("access_token");
+
+        let res = await fetch(`/tasks/filter?sort_by=${sort_by}&order=${order}&skip=${skip}&limit=${tasksPerPage}`, {
+        method: "GET",
+        headers: { "Authorization": `Bearer ${access_token}` }
+    });
+
+        if(res.status === 401){
+            access_token = await refreshAccessToken();
+            if(!access_token) return;
+
+            res = await fetch(`/tasks/filter?sort_by=${sort_by}&order=${order}&skip=${skip}&limit=${tasksPerPage}`, {
+                method: "GET",
+                headers: { "Authorization": `Bearer ${access_token}` }
+            });
+        }
+
+        const data = await res.json();
+
+        setTimeout(() => {
+        loading.style.display = "none";
+        }, 500);
+
+        if (res.ok) {
+
+            const tasks = data.tasks;
+
+            totalTasks.innerText = data.total_tasks;
+
+            if (!tasks || tasks.length === 0) {
+
+    const empty = document.createElement("div");
+
+    empty.style.gridColumn = "1 / -1";
+    empty.style.display = "flex";
+    empty.style.flexDirection = "column";
+    empty.style.alignItems = "center";
+    empty.style.justifyContent = "center";
+    empty.style.textAlign = "center";
+    empty.style.height = "300px";
+
+    empty.innerHTML = `
+        <p style="font-size:22px;color:#555;margin-bottom:15px;">
+            No tasks yet. Create one!
+        </p>
+
+        <button id="emptyAddBtn" style="
+            background:#8059a1;
+            color:white;
+            padding:10px 18px;
+            border:none;
+            border-radius:10px;
+            cursor:pointer;
+            font-size:16px;
+        ">
+            + Add Task
+        </button>
+    `;
+
+    container.appendChild(empty);
+
+    document.getElementById("emptyAddBtn").addEventListener("click", () => {
+        taskForm.style.display = "block";
+        empty.style.display = "none";
+    });
+
+    return;
+}
+
+            tasks.forEach(task => {
+                const card = document.createElement("div");
+                card.className = "card";
+
+                card.innerHTML = `
+                    <h3 style="color:#ece1fa;font-size:23px">${task.title}</h3>
+                    <p style="color:#ece1fa;font-size:19px">${task.description}</p>
+                    <p style="color:#f1e5ff;font-size:15px">Priority: ${task.priority}</p>
+                    <p style="color:#f1e5ff;font-size:15px">Status: ${task.status}</p>
+                    <p style="color:#f1e5ff;font-size:12px">Created at: ${formatDate(task.created_at)}</p>
+                    <p style="color:#f1e5ff;font-size:12px">Updated at: ${formatDate(task.updated_at)}</p>
+                    <button class="update">Update</button>
+                    <button class="delete">Delete</button>
+                `;
+
+                const btnUpdate = card.querySelector(".update");
+                const btnDelete = card.querySelector(".delete");
+
+
+                btnUpdate.addEventListener("click", () => openTaskEditor(task));
+                btnDelete.addEventListener("click", () => deleteTask(task.task_id,btnDelete));
+
+                container.appendChild(card);
+            });
+
+            totalTasks.innerText = data.total_tasks;
+
+            const baseSkip = parseInt(document.getElementById("skip").value);
+            const totalPages = Math.ceil((data.total_tasks - baseSkip) / tasksPerPage);
+            renderPagination(totalPages, page);
+        }
+            else {
+            message.style.color = "red";
+            message.innerText = data.message || data.detail || "❌ Could not fetch tasks";
+        }
+
+    } catch (err){
+        loading.style.display = "none";
+        message.style.color = "red";
+        message.innerText = "❌ Server connection error";
+        console.error(err);
+    }
+}
+
+
+document.getElementById("tasksPerPageSelect").addEventListener("change", e => {
+    tasksPerPage = parseInt(e.target.value);
+    currentPage = 1;
+    const sortBy = document.getElementById("sortTasks").value;
+    const order = document.getElementById("orderTasks").value;
+    fetchTasks(sortBy, order, currentPage);
+});
+
+document.getElementById("sortTasks").addEventListener("change", ()=> fetchTasks(document.getElementById("sortTasks").value, document.getElementById("orderTasks").value, 1));
+document.getElementById("orderTasks").addEventListener("change", ()=> fetchTasks(document.getElementById("sortTasks").value, document.getElementById("orderTasks").value, 1));
+
+
+function renderPagination(totalPages, currentPage) {
+    const pagination = document.getElementById("pagination");
+    pagination.innerHTML = "";
+
+    for (let i = 1; i <= totalPages; i++) {
+        const btn = document.createElement("button");
+        btn.innerText = i;
+        btn.className = (i === currentPage) ? "active" : "";
+        btn.addEventListener("click", () => {
+            btn.disabled=true;
+            fetchTasks(document.getElementById("sortTasks").value, document.getElementById("orderTasks").value, i);
+        });
+        pagination.appendChild(btn);
+    }
+}
+
+
+document.getElementById("skip").addEventListener("change", (e) => {
+    currentPage = 1;
+    fetchTasks();
+});
+
+
+
+let filteredTasks = [];
+
+async function fetchTasksByFilter(priority=null, status=null) {
+    const container = document.getElementById("tasksContainer");
+    const message = document.getElementById("message");
+    const loading = document.getElementById("loading");
+    container.innerHTML = "";
+    message.innerText = "";
+    loading.style.display = "flex";
+
+    const priorityFilter = document.getElementById("priorityFilter").value || null;
+    const statusFilter = document.getElementById("statusFilter").value || null;
+
+    if(priorityFilter) priority = priorityFilter;
+    if(statusFilter) status = statusFilter;
+
+    if(!priority && !status){
+        await fetchTasks()
+        return
+    }
+
+    try {
+        let access_token = localStorage.getItem("access_token");
+
+        let url = `/tasks/prio_stat?`;
+        if(priority) url += `priority=${priority}`;
+        if(status) url += `&status=${status}`;
+
+        let res = await fetch(url, {
+            method: "GET",
+            headers: { "Authorization": `Bearer ${access_token}` }
+        });
+
+        if(res.status === 401){
+            access_token = await refreshAccessToken();
+            if(!access_token) return;
+            res = await fetch(url, {
+                method: "GET",
+                headers: { "Authorization": `Bearer ${access_token}` }
+            });
+        }
+
+        const data = await res.json();
+
+        loading.style.display = "none";
+
+        if(res.ok) {
+            filteredTasks = data.tasks || [];
+            const tasks = data.tasks;
+            if(!tasks || tasks.length === 0){
+                container.innerHTML = `<p style="text-align:center;color:#555;">
+                                        No tasks found for selected filter.
+                                        </p>`;
+                return;
+            }
+
+            currentPage = 1;
+            renderTasksPage(currentPage);
+
+
+        } else {
+            message.style.color = "red";
+            message.innerText = data.message || "❌ Could not fetch tasks";
+        }
+
+    } catch(err) {
+        loading.style.display = "none";
+        message.style.color = "red";
+        message.innerText = "❌ Server connection error";
+        console.error(err);
+    }
+}
+
+function renderTasksPage(page) {
+    const container = document.getElementById("tasksContainer");
+    const pagination = document.getElementById("pagination");
+    container.innerHTML = "";
+
+    const start = (page - 1) * tasksPerPage;
+    const end = start + tasksPerPage;
+    const tasksToShow = filteredTasks.slice(start, end);
+
+    tasksToShow.forEach(task => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+            <h3>${task.title}</h3>
+            <p>${task.description}</p>
+            <p>Priority: ${task.priority}</p>
+            <p>Status: ${task.status}</p>
+            <p>Created: ${formatDate(task.created_at)}</p>
+            <p>Updated: ${formatDate(task.updated_at)}</p>
+             <button class="update">Update</button>
+            <button class="delete">Delete</button>
+            `;
+
+            const btnUpdate = card.querySelector(".update");
+            const btnDelete = card.querySelector(".delete");
+
+
+            btnUpdate.addEventListener("click", () => openTaskEditor(task));
+            btnDelete.addEventListener("click", () => deleteTask(task.task_id,btnDelete));
+
+            container.appendChild(card);
+    });
+
+    pagination.innerHTML = "";
+    const totalPages = Math.ceil(filteredTasks.length / tasksPerPage);
+
+    if(totalPages <= 1) return;
+
+    if(page > 1){
+        const prevBtn = document.createElement("button");
+        prevBtn.innerText = "Prev";
+        prevBtn.onclick = () => { currentPage--; renderTasksPage(currentPage); };
+        pagination.appendChild(prevBtn);
+    }
+
+    for(let i = 1; i <= totalPages; i++){
+        const pageBtn = document.createElement("button");
+        pageBtn.innerText = i;
+        pageBtn.disabled = (i === page);
+        pageBtn.onclick = () => { currentPage = i; renderTasksPage(currentPage); };
+        pagination.appendChild(pageBtn);
+    }
+
+    if(page < totalPages){
+        const nextBtn = document.createElement("button");
+        nextBtn.innerText = "Next";
+        nextBtn.onclick = () => { currentPage++; renderTasksPage(currentPage); };
+        pagination.appendChild(nextBtn);
+    }
+}
+
+document.getElementById("priorityFilter").addEventListener("change", () => {
+    const priority = document.getElementById("priorityFilter").value || null;
+    const status = document.getElementById("statusFilter").value || null;
+    fetchTasksByFilter(priority, status);
+});
+
+document.getElementById("statusFilter").addEventListener("change", () => {
+    const priority = document.getElementById("priorityFilter").value || null;
+    const status = document.getElementById("statusFilter").value || null;
+    fetchTasksByFilter(priority, status);
+});
+
+document.getElementById("search").addEventListener("input", function () {
+    const key = this.value;
+    fetchSearchTasks(key, 1);
+});
+
+async function fetchSearchTasks(key, page = 1) {
+    const container = document.getElementById("tasksContainer");
+    container.innerHTML = "";
+    try {
+        let access_token = localStorage.getItem("access_token");
+
+        let res = await fetch(`/tasks/search?key=${key}`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${access_token}`
+            }
+        });
+
+        if(res.status === 401){
+           access_token = await refreshAccessToken();
+            if(!access_token) return;
+
+            res = await fetch(`/tasks/search?key=${key}`, {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${access_token}`
+                }
+            });
+        }
+
+        const data = await res.json();
+
+        if(res.ok) {
+            filteredTasks = data.tasks || [];
+            const tasks = data.tasks;
+            if (!tasks || tasks.length === 0) {
+                container.innerHTML = `<p style="text-align:center;color:#555;">
+                                        No tasks found for selected filter.
+                                        </p>`;
+                return;
+            }
+        }
+
+            renderSearchPagination(1);
+
+
+    } catch(err){
+        console.error(err);
+    }
+
+}
+
+function renderSearchPagination(page) {
+    const container = document.getElementById("tasksContainer");
+    const pagination = document.getElementById("pagination");
+    container.innerHTML = "";
+
+    const start = (page - 1) * tasksPerPage;
+    const end = start + tasksPerPage;
+    const tasksToShow = filteredTasks.slice(start, end);
+
+    tasksToShow.forEach(task => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+            <h3>${task.title}</h3>
+            <p>${task.description}</p>
+            <p>Priority: ${task.priority}</p>
+            <p>Status: ${task.status}</p>
+            <p>Created: ${formatDate(task.created_at)}</p>
+            <p>Updated: ${formatDate(task.updated_at)}</p>
+             <button class="update">Update</button>
+            <button class="delete">Delete</button>
+            `;
+
+            const btnUpdate = card.querySelector(".update");
+            const btnDelete = card.querySelector(".delete");
+
+
+            btnUpdate.addEventListener("click", () => openTaskEditor(task));
+            btnDelete.addEventListener("click", () => deleteTask(task.task_id,btnDelete));
+
+            container.appendChild(card);
+    });
+
+    pagination.innerHTML = "";
+    const totalPages = Math.ceil(filteredTasks.length / tasksPerPage);
+
+    if(totalPages <= 1) return;
+
+    if(page > 1){
+        const prevBtn = document.createElement("button");
+        prevBtn.innerText = "Prev";
+        prevBtn.onclick = () => { currentPage--; renderSearchPagination(currentPage); };
+        pagination.appendChild(prevBtn);
+    }
+
+    for(let i = 1; i <= totalPages; i++){
+        const pageBtn = document.createElement("button");
+        pageBtn.innerText = i;
+        pageBtn.disabled = (i === page);
+        pageBtn.onclick = () => { currentPage = i; renderSearchPagination(currentPage); };
+        pagination.appendChild(pageBtn);
+    }
+
+    if(page < totalPages){
+        const nextBtn = document.createElement("button");
+        nextBtn.innerText = "Next";
+        nextBtn.onclick = () => { currentPage++; renderSearchPagination(currentPage); };
+        pagination.appendChild(nextBtn);
+    }
+}
+
 </script>
 
 </body>

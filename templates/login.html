@@ -99,7 +99,7 @@ button:hover {
 
    <form id="signinForm">
       <div class="input-group">
-        <input type="email" id="email" autocomplete="off" placeholder="Email Address" required>
+        <input type="email" id="email"  placeholder="Email Address" required>
       </div>
       <div class="input-group">
         <input type="password" id="password" autocomplete="off" placeholder="Password" required>
@@ -152,6 +152,8 @@ button:hover {
             if (data.access_token) localStorage.setItem("access_token", data.access_token);
             if (data.refresh_token) localStorage.setItem("refresh_token", data.refresh_token);
             if (data.user_id) localStorage.setItem("user_id", data.user_id);
+            if (data.role) localStorage.setItem("role", data.role);
+
 
             setTimeout(() => {
                 window.location.href = "/tasks";
