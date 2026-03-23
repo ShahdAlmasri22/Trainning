@@ -8,7 +8,6 @@ from backend.models.task import Task
 from backend.models.logged import Logged
 from fastapi import FastAPI
 
-
 app = FastAPI()
 
 app.include_router(user_controller.api)
