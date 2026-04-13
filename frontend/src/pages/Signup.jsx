@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 
+
 export default function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
