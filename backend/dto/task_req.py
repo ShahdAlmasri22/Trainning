@@ -1,5 +1,4 @@
 from pydantic import BaseModel, Field
-
 from backend.models.task import Status, Priority
 
 
