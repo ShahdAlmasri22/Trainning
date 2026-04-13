@@ -38,9 +38,11 @@ def create_task(request:Request, req : task_request, user_id, session):
             detail=f"Error creating task: {str(e)}"
         )
 
+def view_task(request:Request, user_id, session):
+    #def view_task(request: Request, user_id, session, limit: int = 10, skip: int = 0):
 
-def view_task(request:Request, user_id, session, limit: int =10, skip: int = 0):
-    tasks = session.query(Task).filter(Task.user_id == user_id).offset(skip).limit(limit).all()
+    # tasks = session.query(Task).filter(Task.user_id == user_id).offset(skip).limit(limit).all()
+    tasks = session.query(Task).filter(Task.user_id == user_id).all()
 
     total_tasks= session.query(Task).filter(Task.user_id == user_id).count()
 
@@ -58,8 +60,8 @@ def view_task(request:Request, user_id, session, limit: int =10, skip: int = 0):
     }
 
 def filter_by_status(request:Request, user_id, session, status):
-    tasks = session.query(Task).filter(Task.user_id == user_id , Task.status == status).all()
-    if not tasks:
+    taskss = session.query(Task).filter(Task.user_id == user_id , Task.status == status).all()
+    if not taskss:
         logged_service.create_logged(method=request.method, path=request.url.path, status=404, user_id=user_id, session=session)
         raise HTTPException(
             status_code=404,
@@ -67,7 +69,7 @@ def filter_by_status(request:Request, user_id, session, status):
         )
     result = []
 
-    for task in tasks:
+    for task in taskss:
         result.append(task_to_dict(task))
 
     logged_service.create_logged(method=request.method, path=request.url.path, status=200, user_id=user_id, session=session)
@@ -99,6 +101,7 @@ def filter_by_priority(request:Request, user_id, session, priority):
 def get_tasks(request:Request, user_id, session, sort_by="created_at", order="desc", skip=0, limit=10):
 
     allowed_sort = ["created_at", "priority", "status", "title"]
+
 
     if sort_by not in allowed_sort:
         logged_service.create_logged(method=request.method, path=request.url.path, status=422, user_id=user_id, session=session)
@@ -317,11 +320,15 @@ def search_task(request:Request, key, user_id, session):
     for task in matched_tasks:
         result.append(task_to_dict(task))
 
+    query = session.query(Task).filter(Task.user_id == user_id)
+    tatal_task = query.count()
+
     logged_service.create_logged(method=request.method, path=request.url.path, status=200, user_id=user_id,
                                  session=session)
     return {
         "status_code": 200,
-        "tasks": result
+        "tasks": result,
+        "total_tasks": tatal_task
     }
 
 def view_all_tasks(request:Request, user_id, session):

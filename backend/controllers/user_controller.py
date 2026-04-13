@@ -30,6 +30,9 @@ async def task_page(request: Request):
 async def view_user(request: Request, user_id:Annotated[int, Depends(get_current_user)], session: Session = Depends(get_db)):
     return user_service.view_user(request, user_id, session)
 
+@api.get("/search")
+async def search_task(request:Request, key: str, user_id:Annotated[int, Depends(get_current_user)],session: Session = Depends(get_db)):
+    return user_service.search_user(request, key, user_id, session)
 
 @api.post("/")
 async def create_user(request: Request, req: user_request, session: Session = Depends(get_db)):
@@ -60,3 +63,4 @@ async def delete_account(request: Request, user_id : int, user_id_token:Annotate
 @api.patch("/role/{user_id}")
 async def update_role(request: Request, user_id : int, new_role: Role, user_id_token:Annotated[int, Depends(get_current_user)],session: Session = Depends(get_db)):
     return user_service.update_role(request, user_id, user_id_token, session, new_role)
+

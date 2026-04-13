@@ -1,5 +1,9 @@
 from datetime import datetime, timedelta
+from urllib.request import Request
+
 from fastapi import HTTPException
+from sqlalchemy import or_
+
 from backend.dto.user_req import user_request, login, profile
 from backend.auth import create_access_token, decode_token, create_refresh_token
 from backend.models.user import User, Role
@@ -33,7 +37,7 @@ def create_user(request, req: user_request, session):
         access_token = create_access_token(new_user.user_id)
         refresh_token = create_refresh_token(new_user.user_id)
         user_id = decode_token(access_token, request, session)
-
+        role = new_user.role
         logged_service.create_logged(method=request.method, path=request.url.path, status=201, user_id=user_id, session= session)
 
         return {
@@ -42,6 +46,7 @@ def create_user(request, req: user_request, session):
             "access_token": access_token,
             "refresh_token": refresh_token,
             "user_id": user_id,
+            "role": role,
             "user": {
                 "name": req.name,
                 "email": req.email
@@ -78,7 +83,7 @@ def check_rate_limit(email: str):
     if len(attempts) >= MAX_ATTEMPTS:
         raise HTTPException(
             status_code=429,
-            detail="Too many login attempts. Try again later."
+            detail="Too many request attempts. Try again later."
         )
 
     attempts.append(now)
@@ -289,4 +294,56 @@ def view_user(request, user_id, session):
     return {
         "status_code": 200,
         "users": all_users
+    }
+
+def search_user(request:Request, key, user_id, session):
+
+    user = session.query(User).filter(User.user_id==user_id).first()
+    if not user:
+        logged_service.create_logged(method=request.method, path=request.url.path, status=404, user_id=None,
+                                     session=session)
+        raise HTTPException(
+            status_code=404,
+            detail="User not found"
+        )
+    if user.role != Role.ADMIN:
+        logged_service.create_logged(method=request.method, path=request.url.path, status=403, user_id=user_id,
+                                     session=session)
+
+        raise HTTPException(
+            status_code=403,
+            detail="You don't have permission to search users"
+        )
+
+    matched_users = session.query(User).filter(
+        or_(
+            User.name.ilike(f'%{key}%'),
+            User.role.ilike(f'%{key}%'),
+            User.email.ilike(f'%{key}%'),
+        )
+    ).all()
+
+    if not matched_users:
+        logged_service.create_logged(method=request.method, path=request.url.path, status=404, user_id=user_id,
+                                     session=session)
+        return {
+            "status_code": 404,
+            "message": "No matching users found"
+        }
+
+    result = []
+    for u in matched_users:
+        result.append({
+            "ID": u.user_id,
+            "name": u.name,
+            "email": u.email,
+            "role": u.role,
+        })
+
+
+    logged_service.create_logged(method=request.method, path=request.url.path, status=200, user_id=user_id,
+                                 session=session)
+    return {
+        "status_code": 200,
+        "users": result,
     }

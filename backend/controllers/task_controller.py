@@ -27,9 +27,11 @@ async def create_task(request : Request, req: task_request, user_id:Annotated[in
 
 
 @api.get("/view" )
-async def get_all_task(request:Request, user_id: Annotated[int, Depends(get_current_user)], session: Session = Depends(get_db),
-                       limit: int =10, skip: int =0,):
-    return task_service.view_task(request, user_id, session, limit, skip)
+# async def get_all_task(request:Request, user_id: Annotated[int, Depends(get_current_user)], session: Session = Depends(get_db),
+#                        limit: int =10, skip: int =0,):
+#     return task_service.view_task(request, user_id, session, limit, skip)
+async def get_all_task(request:Request, user_id: Annotated[int, Depends(get_current_user)], session: Session = Depends(get_db)):
+    return task_service.view_task(request, user_id, session)
 
 @api.get("/view/status" )
 async def filter_by_status(request:Request, status:Status, user_id: Annotated[int, Depends(get_current_user)], session: Session = Depends(get_db)):

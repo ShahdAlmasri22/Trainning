@@ -1,3 +1,5 @@
+from starlette.middleware.cors import CORSMiddleware
+
 from backend.controllers import user_controller, health
 from backend.controllers import task_controller
 from backend.controllers import logged_controller
@@ -17,6 +19,15 @@ app.include_router(logged_controller.api)
 app.include_router(health.api)
 
 Base.metadata.create_all(engine)  # This is to create models in the database
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 # To generate a SECRET_KEY for token
