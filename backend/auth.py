@@ -8,6 +8,7 @@ from sqlalchemy.orm import Session
 from backend.models.database import get_db
 from backend.services import logged_service
 
+
 load_dotenv()
 secret_key = os.getenv("SECRET_KEY")
 alg = os.getenv("ALGORITHM")

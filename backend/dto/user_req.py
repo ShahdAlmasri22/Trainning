@@ -1,6 +1,5 @@
 from pydantic import BaseModel, EmailStr, field_validator, Field
 import re
-
 from backend.models.user import Role
 
 

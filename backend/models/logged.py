@@ -4,6 +4,7 @@ from sqlalchemy.orm import relationship
 from .database import Base
 
 
+
 class Logged(Base):
     __tablename__='logged'
     logged_id = Column(Integer, autoincrement=True, primary_key=True)

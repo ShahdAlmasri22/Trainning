@@ -4,7 +4,6 @@ from backend.dto.user_req import user_request, login, profile
 from backend.auth import create_access_token, decode_token, create_refresh_token
 from backend.models.user import User, Role
 import hashlib
-
 from backend.services import logged_service
 
 

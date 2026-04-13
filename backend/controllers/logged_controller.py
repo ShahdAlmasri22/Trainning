@@ -1,10 +1,8 @@
 from typing import Annotated
-
 from fastapi import Depends, Request
 from fastapi.routing import APIRouter
 from sqlalchemy.orm import Session
 from starlette.templating import Jinja2Templates
-
 from backend.auth import get_current_user
 from backend.models.database import get_db
 from backend.services import logged_service

@@ -10,6 +10,7 @@ from backend.models.user import Role
 from backend.services import user_service
 from backend.auth import get_current_user, create_access_token
 
+
 templates = Jinja2Templates(directory="templates")
 api = APIRouter(prefix="/users") # every url start with users
 
