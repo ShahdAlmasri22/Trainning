@@ -10,6 +10,7 @@ from backend.auth import get_current_user
 from backend.models.database import get_db
 from backend.models.task import Status, Priority
 
+
 api = APIRouter(prefix="/tasks")
 
 templates = Jinja2Templates(directory="templates")
