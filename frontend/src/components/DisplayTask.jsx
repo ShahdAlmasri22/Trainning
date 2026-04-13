@@ -1,5 +1,6 @@
 import {Box, Button, Card, CircularProgress, Typography} from "@mui/material";
 
+
 export default function DisplayTask(
     {
         isNoTasksAtAll,
