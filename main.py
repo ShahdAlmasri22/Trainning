@@ -21,14 +21,6 @@ app.include_router(health.api)
 Base.metadata.create_all(engine)  # This is to create models in the database
 
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
 
 # To generate a SECRET_KEY for token
 # import os
